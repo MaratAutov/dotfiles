@@ -1,7 +1,7 @@
 " 
 let mapleader = ','
 
-nmap \l :setlocal number!<CR>etlocal number?<CR>
+nmap \l :setlocal number!<CR>:setlocal number?<CR>
 nmap \q :nohlsearch<CR>
 
 nmap j gj
@@ -37,7 +37,7 @@ set copyindent
 set directory-=.
 set encoding=utf8
 set expandtab
-set fileformat=unix,dos,mac
+set fileformats=unix,dos,mac
 
 set hidden
 set history=200
@@ -79,3 +79,12 @@ colorscheme PaperColor
 if has("gui_running")
 	set guioptions-=T
 endif
+
+" plugin
+" easymotion
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map  n <Plug>(easymotion-next)
+map  N <Plug>(easymotion-prev)
+
+silent! nohlsearch
