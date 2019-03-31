@@ -1,7 +1,6 @@
 " 
-let mapleader = ','
+let mapleader = " "
 
-nmap \l :setlocal number!<CR>:setlocal number?<CR>
 nmap \q :nohlsearch<CR>
 
 nmap j gj
@@ -46,7 +45,7 @@ set ignorecase
 set infercase
 set laststatus=2
 set linebreak
-set nonumber
+set number relativenumber
 set visualbell t_vb=
 set nowritebackup
 set ruler
