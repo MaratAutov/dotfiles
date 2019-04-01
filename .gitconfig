@@ -1,0 +1,32 @@
+[user]
+	name = Marat A. Ayutov
+	email = mayutov@IBS.ru
+[color]
+	diff = auto
+	interactive = auto
+	status = auto
+[alias]
+	co = checkout
+	br = branch
+	cm = commit
+	st = status -s -b -v -unormal
+	last = log -1 HEAD^
+	puwl = push --force-with-lease
+	cfg = config --global
+	ft = fetch --all --tags
+	lg = log -n 3
+	df = diff
+	dt = difftoll
+	mt = mergetool
+	rb = rebase
+	rbs = rebase --skip
+	rba = rebase --ablort
+	rbc = rebase --continue
+	sth = stash
+	sts = stash save
+	stp = stash pop
+	cl = clean -d -f -x
+	tree = log --graph --decorate --oneline --all
+
+[pull]
+	rebase = true
