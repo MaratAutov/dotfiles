@@ -64,10 +64,10 @@ set tabstop=4
 set textwidth=120
 set wildmenu
 set wildmode=list:longest,full
-
-
+set mouse=a
+set path+=**
 "
-syntax on
+syntax enable
 filetype plugin indent on
 "
 " Colors
@@ -78,12 +78,5 @@ colorscheme PaperColor
 if has("gui_running")
 	set guioptions-=T
 endif
-
-" plugin
-" easymotion
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
 
 silent! nohlsearch
