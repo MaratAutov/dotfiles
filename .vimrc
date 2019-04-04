@@ -64,8 +64,11 @@ set tabstop=4
 set textwidth=120
 set wildmenu
 set wildmode=list:longest,full
+
+set nowrap
 set mouse=a
 set path+=**
+set cb+=unnamed
 "
 syntax enable
 filetype plugin indent on
@@ -81,13 +84,5 @@ endif
 
 silent! nohlsearch
 
-" https://gist.github.com/ahmedelgabri/b9127dfe36ba86f4496c8c28eb65ef2b
-function! ChangeStatusLineColor()
-"    if (mode() =~# '\v(n|no)'
-    return mode() 
-endfunction
 
-" statusline
-set statusline=
-set statusline+=%{ChangeStatusLineColor()}
 
