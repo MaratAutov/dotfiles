@@ -80,3 +80,14 @@ if has("gui_running")
 endif
 
 silent! nohlsearch
+
+" https://gist.github.com/ahmedelgabri/b9127dfe36ba86f4496c8c28eb65ef2b
+function! ChangeStatusLineColor()
+"    if (mode() =~# '\v(n|no)'
+    return mode() 
+endfunction
+
+" statusline
+set statusline=
+set statusline+=%{ChangeStatusLineColor()}
+
