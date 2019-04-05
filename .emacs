@@ -1,11 +1,11 @@
 ;;
-;; config file
-;;
-(defconst config-file "~/.emacs")
+(add-to-list 'load-path "~/.emacs.d/lisp" t)
 
-(defun load-config ()
+(defconst my-config "~/.emacs")
+
+(defun load-cfg ()
   (interactive)
-  (find-file config-file)
+  (find-file my-config)
   )
 
 (defun is-linux ()
@@ -16,36 +16,23 @@
   (eq system-type 'windows-nt)
   )
 
+;; where we are
 (cond
  ((is-windows) (message "It's windows"))
  ((is-linux) (message "It's linux"))
  (t (message "Something else")))
 
-;; set path
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/lisp"))
+;; ui
+(tooltip-mode -1)
+(tool-bar-mode -1)
+(setq inhibit-splash-screen t)
+(setq inhibit-startup-message t)
+(setq word-wrap t)
 
-;;
-(progn
-  (tooltip-mode -1)
-  (tool-bar-mode -1)
-  )
-
-;; colorize
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'spolsky t)
-
-;; line numbering
-(require 'nlinum)
-(global-nlinum-mode 1)
-
-(defun my-nlinum-mode-hook ()
-  (when nlinum-mode
-    (setq-local nlinum-format
-                (concat "%" (number-to-string
-                             ;; Guesstimate number of buffer lines.
-                             (ceiling (log (max 1 (/ (buffer-size) 80)) 10)))
-                        "d"))))
-(add-hook 'nlinum-mode-hook #'my-nlinum-mode-hook)
+;; scrolling
+ (setq scroll-step 1)
+(setq scroll-conservatively 10000)
+(setq auto-window-vscroll nil)
 
 ;; backups
 (defvar --backup-directory (concat user-emacs-directory "backups"))
@@ -63,7 +50,7 @@
       auto-save-timeout 20              ; number of seconds idle time before auto-save (default: 30)
       auto-save-interval 200)           ; number of keystrokes between auto-saves (default: 300)
       
-;; parenthis
+;; parenthesis
 (show-paren-mode 1)
 (setq show-paren-delay 0)
 (electric-pair-mode 1)
@@ -74,10 +61,34 @@
 (setq tab-width 4)          ; and 4 char wide for TAB
 (setq indent-tabs-mode nil) ; And force use of spaces
 
-;; localization
-(set-input-method 'russian-computer)
+;; line numbering
+(require 'nlinum)
+(global-linum-mode 1)
 
-; keybindings
+(defun my-linum-mode-hook ()
+  (when linum-mode
+    (setq-local linum-format
+                (concat "%" (number-to-string
+			     (if (< 0 (buffer-size))
+				 (+ 1 (max 1 (ceiling (log (count-lines 1 (buffer-size)) 10)))) 1))
+                        "d "))))
+(add-hook 'linum-mode-hook #'my-linum-mode-hook)
+
+
+;; language
+(set-language-environment 'Russian)
+
+;; key
 (global-set-key (kbd "C-'") 'toggle-truncate-lines)
+(global-set-key (kbd "C-c l") 'goto-line)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-z") 'undo)
+(global-set-key (kbd "C-a") 'mark-whole-buffer)
+(global-set-key (kbd "S-C-<up>") 'beginning-of-buffer)
+(global-set-key (kbd "S-C-<down>") 'end-of-buffer)
+
+;;
+;; don't forget install popup.el
+(require 'auto-complete)
+(global-auto-complete-mode 1)
 
