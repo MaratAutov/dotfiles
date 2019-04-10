@@ -12,18 +12,17 @@
   (find-file **config**)
   )
 
-(defun is-linux ()
-  (or (eq system-type 'gnu/linux) (eq system-type 'gnu))
+(defvar **is-linux** (or (eq system-type 'gnu/linux) (eq system-type 'gnu))
+  "Check if linux is operation system."
   )
-
-(defun is-windows ()
-  (eq system-type 'windows-nt)
+(defvar **is-windows** (eq system-type 'windows-nt)
+  "Check if windows is operation system"
   )
 
 ;; where we are
 (cond
- ((is-windows) (message "It's windows"))
- ((is-linux) (message "It's linux"))
+ (**is-windows** (message "It's windows"))
+ (**is-linux** (message "It's linux"))
  (t (message "Something else")))
 
 ;; ui
@@ -62,10 +61,8 @@
       delete-by-moving-to-trash t
       kept-old-versions 6               ; oldest versions to keep when a new numbered backup is made (default: 2)
       kept-new-versions 9               ; newest versions to keep when a new numbered backup is made (default: 2)
-      auto-save-default t               ; auto-save every buffer that visits a file
-      auto-save-timeout 20              ; number of seconds idle time before auto-save (default: 30)
-      auto-save-interval 200)           ; number of keystrokes between auto-saves (default: 300)
-      
+      auto-save-default nil)            ; no auto-save 
+            
 ;; parenthesis
 (show-paren-mode 1)
 (setq show-paren-delay 0)
