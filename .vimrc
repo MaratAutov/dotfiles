@@ -53,6 +53,8 @@ set nowrap
 set mouse=a
 set path+=**
 set cb+=unnamed
+set autochdir
+
 "
 syntax enable
 filetype plugin indent on
@@ -80,6 +82,7 @@ let g:netrw_list_hide=',\(^\|\s\s\)\zs\.\S\+'
 let g:incsearch#auto_nohlsearch = 1                   " auto unhighlight after searching
 let g:incsearch#do_not_save_error_message_history = 1 " do not store incsearch errors in history
 let g:incsearch#consistent_n_direction = 1            " when searching backward, do not invert meaning of n and N
+set incsearch
 
 " Lightline {{{
 let s:base1   = '#C8CACB'
