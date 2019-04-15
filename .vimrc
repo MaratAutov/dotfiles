@@ -150,10 +150,6 @@ nmap \q :nohlsearch<CR>
 nmap j gj
 nmap k gk
 
-" move between open buffers.
-nmap <C-n> :bnext<CR>
-nmap <C-p> :bprev<CR>
-
 vnoremap > >gv
 vnoremap < <gv
 nnoremap <Tab>   >>
@@ -165,3 +161,22 @@ nmap <C-j> <C-W>j
 nmap <C-k> <C-W>k
 nmap <C-h> <C-W>h
 nmap <C-l> <C-W>l
+nmap <C-n> :bnext<CR>
+
+" ctrl-p
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = {
+	\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+	\ 'file': '\v\.(exe|so|dll)$',
+	\ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+	\ }
+
+if has("win64") || has("win32") || has("win16") 
+    set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+    let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'
+else
+    set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
+    let g:ctrlp_user_command = 'find %s -type f'
+endif
