@@ -1,11 +1,29 @@
-
+;; set up directory
 (defconst **config** "~/.emacs")
 (defconst **plugin-directory** (concat user-emacs-directory "lisp"))
 
 ;;
 (add-to-list 'load-path **plugin-directory** t)
 
-(defun load-cfg ()
+;; color
+(progn
+  (add-to-list 'load-path (concat **plugin-directory** "/emacs-doom-themes"))
+  (require 'doom-themes)
+
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    
+	doom-themes-enable-italic t) 
+
+  (load-theme 'doom-tomorrow-night t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-neotree-config)
+  (doom-themes-treemacs-config)
+  (doom-themes-org-config)
+  )
+
+
+(defun load-config-file ()
+  "Load config file .emacs"
   (interactive)
   (find-file **config**)
   )
@@ -103,15 +121,6 @@
     (set-default-coding-systems code-page)
 ))
 
-(defun new-empty-buffer ()
-  "Open a new empty buffer."
-  (interactive)
-  (let ((nbuf (generate-new-buffer "new")))
-    (switch-to-buffer nbuf)
-    (funcall (and initial-major-mode))
-    (setq buffer-offer-save t)
-    ))
-
 ;; key
 (global-set-key (kbd "C-'") 'toggle-truncate-lines)
 (global-set-key (kbd "C-c l") 'goto-line)
@@ -126,7 +135,6 @@
 (global-set-key (kbd "C-,") 'previous-buffer)
 (global-set-key (kbd "C-.") 'next-buffer)
 (global-set-key (kbd "C-c C-c") 'comment-region)
-(global-set-key (kbd "C-n") 'new-empty-buffer)
 (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-set-key (kbd "<delete>")
@@ -239,25 +247,17 @@
 (require 'nlinum-hl)
 (global-linum-mode 1)
 
-;; color
-(add-to-list 'load-path (concat **plugin-directory** "/emacs-doom-themes"))
-(require 'doom-themes)
-
-;; Global settings (defaults)
-(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-      doom-themes-enable-italic t) ; if nil, italics is universally disabled
-
-;; Load the theme (doom-one, doom-molokai, etc); keep in mind that each theme
-;; may have their own settings.
-(load-theme 'doom-dracula t)
-
-;; Enable flashing mode-line on errors
-(doom-themes-visual-bell-config)
-
-;; Enable custom neotree theme (all-the-icons must be installed!)
-(doom-themes-neotree-config)
-;; or for treemacs users
-(doom-themes-treemacs-config)
-
-;; Corrects (and improves) org-mode's native fontification.
-(doom-themes-org-config)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("8aca557e9a17174d8f847fb02870cb2bb67f3b6e808e46c0e54a44e3e18e1020" "6b289bab28a7e511f9c54496be647dc60f5bd8f9917c9495978762b99d8c96a0" "cd736a63aa586be066d5a1f0e51179239fe70e16a9f18991f6f5d99732cabb32" "d1b4990bd599f5e2186c3f75769a2c5334063e9e541e37514942c27975700370" "d2e9c7e31e574bf38f4b0fb927aaff20c1e5f92f72001102758005e53d77b8c9" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
