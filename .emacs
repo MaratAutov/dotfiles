@@ -6,20 +6,20 @@
 (add-to-list 'load-path **plugin-directory** t)
 
 ;; color
-(progn
-  (add-to-list 'load-path (concat **plugin-directory** "/emacs-doom-themes"))
-  (require 'doom-themes)
+;(progn
+;  (add-to-list 'load-path (concat **plugin-directory** "/emacs-doom-themes"))
+;  (require 'doom-themes)
 
   ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    
-	doom-themes-enable-italic t) 
+;  (setq doom-themes-enable-bold t    
+;	doom-themes-enable-italic t) 
 
-  (load-theme 'doom-peacock t)
-  (doom-themes-visual-bell-config)
-  (doom-themes-neotree-config)
-  (doom-themes-treemacs-config)
-  (doom-themes-org-config)
-  )
+;  (load-theme 'doom-challenger-deep t)
+;  (doom-themes-visual-bell-config)
+;  (doom-themes-neotree-config)
+;  (doom-themes-treemacs-config)
+;  (doom-themes-org-config)
+;  )
 
 
 (defun load-config-file ()
