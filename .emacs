@@ -14,13 +14,13 @@
 ;  (setq doom-themes-enable-bold t    
 ;	doom-themes-enable-italic t) 
 
-;  (load-theme 'doom-challenger-deep t)
+;  (load-theme 'doom-dracula t)
 ;  (doom-themes-visual-bell-config)
 ;  (doom-themes-neotree-config)
 ;  (doom-themes-treemacs-config)
 ;  (doom-themes-org-config)
 ;  )
-
+(set-face-attribute 'region nil :background "sienna1")
 
 (defun load-config-file ()
   "Load config file .emacs"
@@ -232,7 +232,6 @@
                            (auto-complete-mode 1)
                            (message "Enable auto complete mode in org mode.")))
   )
-
 
 ;; csv
 (autoload 'csv-mode "csv-mode"
