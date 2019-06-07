@@ -257,6 +257,3 @@
 ;; prettify symbols
 (global-prettify-symbols-mode +1)
 
-;; cua-mode
-(require 'cua-mode)
-(cua-mode 1)
