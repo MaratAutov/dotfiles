@@ -6,21 +6,29 @@
 (add-to-list 'load-path **plugin-directory** t)
 
 ;; color
-;(progn
-;  (add-to-list 'load-path (concat **plugin-directory** "/emacs-doom-themes"))
-;  (require 'doom-themes)
+(progn
+  (add-to-list 'load-path (concat **plugin-directory** "/emacs-doom-themes"))
+  (require 'doom-themes)
 
   ;; Global settings (defaults)
-;  (setq doom-themes-enable-bold t    
-;	doom-themes-enable-italic t) 
+  (setq doom-themes-enable-bold t    
+	doom-themes-enable-italic t) 
 
-;  (load-theme 'doom-dracula t)
-;  (doom-themes-visual-bell-config)
-;  (doom-themes-neotree-config)
-;  (doom-themes-treemacs-config)
-;  (doom-themes-org-config)
-;  )
-(set-face-attribute 'region nil :background "sienna1")
+  (load-theme 'doom-dracula t)
+  (doom-themes-visual-bell-config)
+  (doom-themes-neotree-config)
+  (doom-themes-treemacs-config)
+  (doom-themes-org-config)
+  )
+
+;; useful functions
+(add-to-list 'load-path (concat **plugin-directory** "/dash.el"))
+(eval-after-load 'dash '(dash-enable-font-lock))
+(require 'dash)
+
+(add-to-list 'load-path (concat **plugin-directory** "/emacs-memoize"))
+(require 'memoize)
+
 
 (defun load-config-file ()
   "Load config file .emacs"
@@ -253,3 +261,11 @@
 (require 'nlinum-hl)
 (global-linum-mode 1)
 
+;; wind move
+(global-set-key (kbd "C-c <down>") 'windmove-down)
+(global-set-key (kbd "C-c <up>") 'windmove-up)
+(global-set-key (kbd "C-c <left>") 'windmove-left)
+(global-set-key (kbd "C-c <right>") 'windmove-right)
+
+;; prettify symbols
+(global-prettify-symbols-mode +1)
