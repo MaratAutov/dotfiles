@@ -113,7 +113,6 @@
 (global-set-key (kbd "C-c l") 'goto-line)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (global-set-key (kbd "C-z") 'undo)
-(global-set-key (kbd "C-a") 'mark-whole-buffer)
 (global-set-key (kbd "M-1") 'delete-other-windows)
 (global-set-key (kbd "M-2") 'split-window-vertically)
 (global-set-key (kbd "M-3") 'split-window-horizontally)
