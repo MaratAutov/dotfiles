@@ -33,8 +33,7 @@ set number relativenumber
 set visualbell t_vb=
 set nowritebackup
 set ruler
-set scroll=4
-set scrolloff=4
+set scroll=4 scrolloff=4
 set shiftround
 set shiftwidth=4
 set shortmess+=A
@@ -180,3 +179,6 @@ else
     set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " Linux/MacOSX
     let g:ctrlp_user_command = 'find %s -type f'
 endif
+
+autocmd FileType go nmap <leader>b  <Plug>(go-build)
+autocmd FileType go nmap <leader>r  <Plug>(go-run)
