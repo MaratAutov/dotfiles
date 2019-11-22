@@ -1,11 +1,11 @@
 ;;
-;;
-;;
-
 (defconst **plugin-directory** (concat user-emacs-directory "plugins"))
 (add-to-list 'load-path **plugin-directory** t)
 
-;; Inhibit startup/splash screen
+(add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
+(load-theme 'espresso t)
+
+; Inhibit startup/splash screen
 (setq inhibit-splash-screen   t
       inhibit-startup-message t)
 
@@ -13,7 +13,7 @@
 
 ;; SavePlace
 (save-place-mode 1)
-(setq save-place-file                       "~/.emacs.d/saved-places"
+(setq save-place-file (concat user-emacs-directory "saved-places")
       save-place-forget-unreadable-files    t)
 
 ;; Electric-modes settings
@@ -47,7 +47,8 @@
   )
 )
 
-;; Display the name of the current buffer in the title bar
+
+; Display the name of the current buffer in the title bar
 (setq frame-title-format "%b")
 
 ;; Disable backup/autosave files
@@ -199,10 +200,6 @@
 (global-set-key (kbd "C-x C-k") 'kill-this-buffer)
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
-;; change selection color
-;(set-face-attribute 'region nil :background "#666" :foreground "#ffffff")
-(load-theme 'manoj-dark t)
-
 ;; language environment
 (setq default-input-method 'russian-computer)
 
@@ -235,8 +232,5 @@
                            (message "Enable auto complete mode in org mode.")))
 )
 
-;;
-
+;; helm
 (add-to-list 'load-path (concat **plugin-directory** "/helm"))
-;(require 'helm)
-;(helm-mode 1)
