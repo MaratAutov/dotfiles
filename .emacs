@@ -1,136 +1,103 @@
-;; set up directory
-(defconst **config** "~/.emacs")
-(defconst **plugin-directory** (concat user-emacs-directory "lisp"))
-
 ;;
+;;
+;;
+
+(defconst **plugin-directory** (concat user-emacs-directory "plugins"))
 (add-to-list 'load-path **plugin-directory** t)
 
-;; color region
-(set-face-attribute 'region nil :background "gainsboro")
+;; Inhibit startup/splash screen
+(setq inhibit-splash-screen   t
+      inhibit-startup-message t)
 
-;; useful functions
-(add-to-list 'load-path (concat **plugin-directory** "/dash.el"))
-(eval-after-load 'dash '(dash-enable-font-lock))
-(require 'dash)
+(semantic-mode 1)
 
-(add-to-list 'load-path (concat **plugin-directory** "/emacs-memoize"))
-(require 'memoize)
+;; SavePlace
+(save-place-mode 1)
+(setq save-place-file                       "~/.emacs.d/saved-places"
+      save-place-forget-unreadable-files    t)
 
-
-(defun load-config-file ()
-  "Load config file .emacs"
-  (interactive)
-  (find-file **config**)
-  )
-
-(defvar **is-linux** (or (eq system-type 'gnu/linux) (eq system-type 'gnu))
-  "Check if linux is operation system."
-  )
-(defvar **is-windows** (eq system-type 'windows-nt)
-  "Check if windows is operation system"
-  )
-
-;; where we are
-(cond
- (**is-windows** (message "It's windows"))
- (**is-linux** (message "It's linux"))
- (t (message "Something else")))
+;; Electric-modes settings
+(electric-pair-mode     -1)
+(electric-indent-mode   -1)
+;; Delete selection
+(delete-selection-mode t)
 
 ;; ui
-(progn
-  (tooltip-mode -1)
-  (tool-bar-mode -1)
-  (setq inhibit-splash-screen t)
-  (setq inhibit-startup-message t)
-  (setq word-wrap t)
-  (setq use-dialog-box nil)
-  (setq ring-bell-function 'ignore)
-  (line-number-mode 1)
-  (column-number-mode 1)
-  (toggle-truncate-lines)
-  (transient-mark-mode 1)
-  (setq resize-minibuffer-mode t)
-  (setq initial-major-mode 'text-mode)
-  (delete-selection-mode t)
-  (setq delete-active-region nil)
+(when (display-graphic-p)
+  (progn
+    (tooltip-mode -1)
+    (tool-bar-mode -1)
+    (setq inhibit-splash-screen t)
+    (setq inhibit-startup-message t)  
+    (setq word-wrap t)
+    (setq use-dialog-box nil)
+    (setq ring-bell-function 'ignore)
+    (line-number-mode 1)
+    (column-number-mode 1)
+    (toggle-truncate-lines)
+    (transient-mark-mode 1)
+    (setq redisplay-dont-pause t)
+    (setq resize-minibuffer-mode t)
+    (setq initial-major-mode 'text-mode)
+    (delete-selection-mode t)
+    (setq delete-active-region t)
+    ;; Fringe settings
+    (fringe-mode '(8 . 0))
+    (setq-default indicate-buffer-boundaries 'left)
+  )
 )
 
-;; scrolling
-(setq scroll-step 1)
-(setq scroll-conservatively 10000)
-(setq auto-window-vscroll nil)
+;; Display the name of the current buffer in the title bar
+(setq frame-title-format "%b")
 
-;; backups
-(defvar --backup-directory (concat user-emacs-directory "backups"))
-(if (not (file-exists-p --backup-directory))
-        (make-directory --backup-directory t))
-(setq backup-directory-alist `(("." . ,--backup-directory)))
-(setq make-backup-files t               ; backup of a file the first time it is saved.
-      backup-by-copying t               ; don't clobber symlinks
-      version-control t                 ; version numbers for backup files
-      delete-old-versions t             ; delete excess backup files silently
-      delete-by-moving-to-trash t
-      kept-old-versions 6               ; oldest versions to keep when a new numbered backup is made (default: 2)
-      kept-new-versions 9               ; newest versions to keep when a new numbered backup is made (default: 2)
-      auto-save-default nil)            ; no auto-save 
-            
-;; parenthesis
-(show-paren-mode 1)
-(setq show-paren-delay 0)
-(setq show-paren-style 'parenthesis)
-(electric-pair-mode 1)
-(setq electric-pair-preserve-balance nil)
+;; Disable backup/autosave files
+(setq backup-inhibited          t
+      make-backup-files         nil
+      auto-save-default         nil
+      auto-save-list-file-name  nil)
 
-(setq inhibit-startup-screen t)
-(setq c-basic-offset 4) ; indents 4 chars                            
-(setq tab-width 4)          ; and 4 char wide for TAB
-(setq indent-tabs-mode nil) ; And force use of spaces
-
-;; recent file
-(recentf-mode t)
-(global-set-key (kbd "C-x C-r") 'recentf-open-files)
-(setq recentf-max-save-items 50)
-
-;; use system clipboard
-(setq mouse-drag-copy-region nil)
-(setq x-select-enable-clipboard t)
-(setq x-select-enable-primary nil)
-(setq save-interprogram-paste-before-kill t)
-
-;; language
+;; Coding-system settings
 (set-language-environment 'Russian)
-(setq default-input-method 'russian-computer)
-(progn
-  (let ((code-page 'utf-8-unix))
-    (prefer-coding-system code-page)
-    (set-buffer-file-coding-system code-page)
-    (set-terminal-coding-system code-page)
-    (set-default-coding-systems code-page)
-))
+(setq buffer-file-coding-system         'utf-8
+      file-name-coding-system           'utf-8)
+(setq-default coding-system-for-read    'utf-8)
+(set-selection-coding-system            'utf-8)
+(set-keyboard-coding-system             'utf-8-unix)
+(set-terminal-coding-system             'utf-8)
+(prefer-coding-system                   'utf-8)
 
-;; key
-(global-set-key (kbd "C-'") 'toggle-truncate-lines)
-(global-set-key (kbd "C-c l") 'goto-line)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "C-z") 'undo)
-(global-set-key (kbd "M-1") 'delete-other-windows)
-(global-set-key (kbd "M-2") 'split-window-vertically)
-(global-set-key (kbd "M-3") 'split-window-horizontally)
-(global-set-key (kbd "M-4") 'delete-window)
-(global-set-key (kbd "C-<tab>") 'other-window)
-(global-set-key (kbd "C-,") 'previous-buffer)
-(global-set-key (kbd "C-.") 'next-buffer)
-(global-set-key (kbd "C-c C-c") 'comment-region)
-(global-set-key (kbd "C-x C-k") 'kill-this-buffer)
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-(global-set-key (kbd "<delete>")
-                '(lambda (n)
-                   (interactive "p")
-                   (if (use-region-p)
-                       (delete-region (region-beginning) (region-end))
-                     (delete-char n)))
-		)
+(setq-default display-line-numbers t)
 
+;; Display file size/time in mode-line
+(setq display-time-24hr-format  t)
+(display-time-mode              t)
+(size-indication-mode           t)
+(defun add-mode-line-dirtrack ()
+  (add-to-list 'mode-line-buffer-identification
+              '(:propertize (" " default-directory " ") face dired-directory)))
+(add-hook 'shell-mode-hook 'add-mode-line-dirtrack)
+
+;; Indent settings
+(setq-default indent-tabs-mode      nil
+              tab-width             4
+              tab-always-indent     nil
+              c-basic-offset        2
+              sh-basic-offset       2
+              sh-indentation        2
+              scala-basic-offset    2
+              java-basic-offset     4
+              standart-indent       4
+              lisp-body-indent      2
+              js-indent-level       2
+              indent-line-function  'insert-tab)
+
+;; Scrolling settings
+(setq scroll-step             1
+      scroll-margin           10
+      scroll-conservatively   10000)
+
+;; Short messages
+(defalias 'yes-or-no-p 'y-or-n-p)
 ;; aliases
 ;; make frequently used commands short
 (progn
@@ -174,44 +141,85 @@
   (defalias 'vlm 'visual-line-mode)
   (defalias 'glm 'global-linum-mode)
 
-  (fset 'yes-or-no-p 'y-or-n-p) ; y or n is enough
   (defalias 'list-buffers 'buffer-menu)
 )
+
 ;; keys sets
 (setq case-fold-search t)
 
+;; Clipboard settings
+(setq x-select-enable-clipboard t)
+(setq x-select-enable-primary t)
+
+(setq next-line-add-newlines nil)
+
+;; Highlight search resalts
+(setq search-highlight            t
+      query-replace-highlight     t
+      auto-window-vscroll         nil
+      bidi-display-reordering     nil)
+
 ;;
-;; don't forget install popup.el
-(defun ac-init()
-    (require 'auto-complete-config)
-    (ac-config-default)
-    (add-to-list 'ac-dictionary-directories (concat **plugin-directory** "/auto-complete//ac-dict"))
-    (setq ac-auto-start        t)
-    (setq ac-auto-show-menu    t)
-    (global-auto-complete-mode t)
-    (add-to-list 'ac-modes   'lisp-mode)
-    (add-to-list 'ac-sources 'ac-source-semantic) ;;
-    (add-to-list 'ac-sources 'ac-source-variables) ;;
-    (add-to-list 'ac-sources 'ac-source-functions) ;;
-    (add-to-list 'ac-sources 'ac-source-dictionary) ;;
-    (add-to-list 'ac-sources 'ac-source-words-in-all-buffer) ;;
-    (add-to-list 'ac-sources 'ac-source-files-in-current-dir)
-    (add-hook 'emacs-lisp-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-symbols)))
-    (add-hook 'auto-complete-mode-hook (lambda () (add-to-list 'ac-sources 'ac-source-filename)))
-    (setq ac-auto-start 2)
-    (setq ac-dwim t)
-    (define-key ac-completing-map (kbd "M-n") 'ac-next)
-    (define-key ac-completing-map (kbd "M-p") 'ac-previous)
-    (setq ac-override-local-map nil)
-    (setq ac-ignore-case t)
-    (setq ac-delay 0.5)
-    (setq ac-use-fuzzy t)
-    (setq ac-use-comphist t)
-    (setq ac-use-quick-help nil)
-)
-(add-to-list 'load-path (concat **plugin-directory** "/auto-complete"))
-(ac-init)
-(global-auto-complete-mode 1)
+(setq split-height-threshold  nil
+      split-width-threshold   0)
+
+(if (equal nil (equal major-mode 'org-mode))
+    (windmove-default-keybindings 'meta))
+
+;; recent file
+(recentf-mode 1)
+(setq recentf-max-menu-items      150
+      recentf-max-saved-items     550)
+(global-set-key (kbd "C-x C-r") 'recentf-open-files)
+
+;; Show paren
+(setq show-paren-delay 0
+      show-paren-style 'expression)
+(show-paren-mode 2)
+
+(setq ns-pop-up-frames          nil
+      ad-redefinition-action    'accept)
+
+(if (fboundp 'global-font-lock-mode)
+    (global-font-lock-mode 1))
+
+;; key
+(global-set-key (kbd "C-'") 'toggle-truncate-lines)
+(global-set-key (kbd "C-c l") 'goto-line)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-z") 'undo)
+(global-set-key (kbd "M-1") 'delete-other-windows)
+(global-set-key (kbd "M-2") 'split-window-vertically)
+(global-set-key (kbd "M-3") 'split-window-horizontally)
+(global-set-key (kbd "M-4") 'delete-window)
+(global-set-key (kbd "C-<tab>") 'other-window)
+(global-set-key (kbd "C-,") 'previous-buffer)
+(global-set-key (kbd "C-.") 'next-buffer)
+(global-set-key (kbd "C-c C-c") 'comment-region)
+(global-set-key (kbd "C-x C-k") 'kill-this-buffer)
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
+;; change selection color
+;(set-face-attribute 'region nil :background "#666" :foreground "#ffffff")
+(load-theme 'manoj-dark t)
+
+;; language environment
+(setq default-input-method 'russian-computer)
+
+;; duplicate line
+(defun duplicate-line()
+  (interactive)
+  (move-beginning-of-line 1)
+  (kill-line)
+  (yank)
+  (open-line 1)
+  (next-line 1)
+  (yank)
+  )
+(global-unset-key (kbd "C-x C-d"))
+(global-set-key (kbd "C-x C-d") 'duplicate-line)
+
+;; add some useful stuff
 
 ;; org-mode
 (progn
@@ -225,34 +233,10 @@
   (add-hook 'org-mode-hook (lambda ()
                            (auto-complete-mode 1)
                            (message "Enable auto complete mode in org mode.")))
-  )
+)
 
-;; csv
-(autoload 'csv-mode "csv-mode"
-  "Major mode for editing csv files." t)
-(add-to-list 'auto-mode-alist '("\\.[Cc][Ss][Vv]\\'" . csv-mode))
+;;
 
-;; async
-(add-to-list 'load-path (concat **plugin-directory** "/emacs-async"))
-(require 'async)
-
-;; helm
 (add-to-list 'load-path (concat **plugin-directory** "/helm"))
-(require 'helm-config)
-(global-set-key (kbd "C-x C-b") 'helm-buffers-list)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-
-;; line number
-(require 'nlinum)
-(require 'nlinum-hl)
-(global-linum-mode 1)
-
-;; wind move
-(global-set-key (kbd "C-c <down>") 'windmove-down)
-(global-set-key (kbd "C-c <up>") 'windmove-up)
-(global-set-key (kbd "C-c <left>") 'windmove-left)
-(global-set-key (kbd "C-c <right>") 'windmove-right)
-
-;; prettify symbols
-(global-prettify-symbols-mode +1)
-
+;(require 'helm)
+;(helm-mode 1)
