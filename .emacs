@@ -3,11 +3,8 @@
 (add-to-list 'load-path **plugin-directory** t)
 
 (add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes"))
-(load-theme 'espresso t)
-
-; Inhibit startup/splash screen
-(setq inhibit-splash-screen   t
-      inhibit-startup-message t)
+(add-to-list 'load-path (concat user-emacs-directory "themes") t)
+(load-theme 'spacemacs-light t)
 
 (semantic-mode 1)
 
