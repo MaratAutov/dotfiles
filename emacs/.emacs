@@ -11,7 +11,7 @@
 (add-to-list 'load-path (concat **themes-directory** "/alect-themes") t)
 
 (require 'cl)
-(load-theme 'alect-light t)
+(load-theme 'alect-light-alt t)
 
 (semantic-mode 1)
 

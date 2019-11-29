@@ -1,7 +1,7 @@
 <code_scheme name="MyCodeStyle" version="173">
   <JavaCodeStyleSettings>
-    <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="999" />
-    <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="999" />
+    <option name="CLASS_COUNT_TO_USE_IMPORT_ON_DEMAND" value="99" />
+    <option name="NAMES_COUNT_TO_USE_IMPORT_ON_DEMAND" value="99" />
     <option name="PACKAGES_TO_USE_IMPORT_ON_DEMAND">
       <value />
     </option>
@@ -15,18 +15,10 @@
   </JavaCodeStyleSettings>
   <codeStyleSettings language="JAVA">
     <option name="ALIGN_MULTILINE_PARAMETERS" value="false" />
-    <option name="CALL_PARAMETERS_WRAP" value="1" />
     <option name="METHOD_PARAMETERS_WRAP" value="1" />
-    <option name="METHOD_CALL_CHAIN_WRAP" value="1" />
     <option name="IF_BRACE_FORCE" value="3" />
     <option name="DOWHILE_BRACE_FORCE" value="3" />
     <option name="WHILE_BRACE_FORCE" value="3" />
     <option name="FOR_BRACE_FORCE" value="3" />
-  </codeStyleSettings>
-  <codeStyleSettings language="XML">
-    <indentOptions>
-      <option name="USE_TAB_CHARACTER" value="true" />
-      <option name="SMART_TABS" value="true" />
-    </indentOptions>
   </codeStyleSettings>
 </code_scheme>
