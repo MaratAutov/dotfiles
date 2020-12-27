@@ -7,12 +7,15 @@
 (add-to-list 'custom-theme-load-path **themes-directory**)
 (add-to-list 'load-path **themes-directory** t)
 
-(add-to-list 'custom-theme-load-path (concat **themes-directory** "/alect-themes"))
-(add-to-list 'load-path (concat **themes-directory** "/alect-themes") t)
-
 (require 'cl)
-(load-theme 'alect-light-alt t)
+(load-theme 'espresso t)
 
+; Set default font
+(set-face-attribute 'default nil
+                    :family "Monospace"
+                    :height 110
+                    :weight 'normal
+                    :width 'normal)
 (semantic-mode 1)
 
 ;; SavePlace
