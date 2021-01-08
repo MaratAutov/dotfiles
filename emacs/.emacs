@@ -7,7 +7,6 @@
 (add-to-list 'custom-theme-load-path **themes-directory**)
 (add-to-list 'load-path **themes-directory** t)
 
-(require 'cl)
 (load-theme 'espresso t)
 
 ; Set default font
@@ -280,3 +279,23 @@
 
 ;; helm
 (add-to-list 'load-path (concat **plugin-directory** "/helm"))
+(add-to-list 'load-path (concat **plugin-directory** "/emacs-async"))
+
+(require 'helm-config)
+(global-set-key (kbd "M-x") #'helm-M-x)
+(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
+
+(helm-mode 1)
+
+(defun xah-new-empty-buffer ()
+  "Create a new empty buffer." (interactive)
+  (let (($buf (generate-new-buffer "untitled")))
+    (switch-to-buffer $buf)
+    (funcall initial-major-mode)
+    (setq buffer-offer-save t)
+    $buf
+    ))
+(global-set-key (kbd "C-x C-n") #'xah-new-empty-buffer)
+
+(setq initial-major-mode (quote text-mode))
