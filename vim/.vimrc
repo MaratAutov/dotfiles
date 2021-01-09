@@ -157,10 +157,10 @@ endtry
 " => Status line
 """"""""""""""""""""""""""""""
 " Always show the status line
-set laststatus=2
+" set laststatus=2
 
 " Format the status line
-set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+" set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
 
 " Disable scrollbars (real hackers don't use scrollbars for navigation!)
@@ -170,7 +170,8 @@ set guioptions-=l
 set guioptions-=L
 
 " Colorscheme
-set background=dark
+set background=light
+colorscheme solarized
 
 vnoremap > >gv
 vnoremap < <gv
@@ -208,13 +209,26 @@ let g:netrw_liststyle=3     " tree view
 let g:netrw_list_hide=netrw_gitignore#Hide()
 let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
+set shell=sh
 set rtp+=~/.vim/bundle/Vundle.vim
+
 call vundle#begin('~/.vim/plugged')
     Plugin 'VundleVim/Vundle.vim'
     Plugin 'junegunn/vim-easy-align'
     Plugin 'terryma/vim-multiple-cursors'
     Plugin 'tpope/vim-surround'
+    Plugin 'vim-airline/vim-airline'
+    Plugin 'vim-airline/vim-airline-themes'
+    Plugin 'preservim/nerdtree'
+    Plugin 'Xuyuanp/nerdtree-git-plugin'
 call vundle#end()
+
+let g:airline_powerline_fonts = 1
+
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+
 
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
