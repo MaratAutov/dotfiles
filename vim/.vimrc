@@ -163,15 +163,17 @@ endtry
 " set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
 
-" Disable scrollbars (real hackers don't use scrollbars for navigation!)
-set guioptions-=r
-set guioptions-=R
-set guioptions-=l
-set guioptions-=L
 
 " Colorscheme
-set background=light
-colorscheme solarized
+if has("gui_running")
+    set background=light
+    colorscheme solarized
+    " Disable scrollbars (real hackers don't use scrollbars for navigation!)
+    set guioptions-=r
+    set guioptions-=R
+    set guioptions-=l
+    set guioptions-=L
+endif
 
 vnoremap > >gv
 vnoremap < <gv
@@ -221,14 +223,25 @@ call vundle#begin('~/.vim/plugged')
     Plugin 'vim-airline/vim-airline-themes'
     Plugin 'preservim/nerdtree'
     Plugin 'Xuyuanp/nerdtree-git-plugin'
+    Plugin 'vim-syntastic/syntastic'
 call vundle#end()
 
 let g:airline_powerline_fonts = 1
+
 
 nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 
+set statusline+=%#warningmsg#
+set statusline+=%{SytasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_lst = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wg = 0
+let g:syntastic_javascript_checkers=['eslint']
 
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
